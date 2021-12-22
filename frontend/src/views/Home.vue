@@ -2,7 +2,7 @@
   <div style="padding: 10px">
 <!--    Function Area-->
     <div style="margin: 10px 0">
-      <el-button type="primary">Add</el-button>
+      <el-button type="primary" @click="handleAdd">Add</el-button>
       <el-button type="primary">Import</el-button>
       <el-button type="primary">Export</el-button>
     </div>
@@ -14,15 +14,18 @@
     </div>
 
     <el-table :data="tableData" stripe border style="width: 100%">
-      <el-table-column prop="date" label="Date" sortable/>
-      <el-table-column prop="name" label="Name"/>
+      <el-table-column prop="id" label="ID" sortable/>
+      <el-table-column prop="username" label="Username"/>
+      <el-table-column prop="nickName" label="Nick Name" />
+      <el-table-column prop="age" label="Age" />
+      <el-table-column prop="sex" label="Sex" />
       <el-table-column prop="address" label="Address" />
-      <el-table-column fixed="right" label="Operations" width="120">
+      <el-table-column label="Operations">
         <template #default>
-          <el-button type="text" @click="handleEdit">Edit</el-button>
+          <el-button size="mini" @click="handleEdit">Edit</el-button>
           <el-popconfirm title="Are you sure to delete this?">
             <template #reference>
-              <el-button type="text">Delete</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete">Delete</el-button>
             </template>
           </el-popconfirm>
         </template>
@@ -40,6 +43,36 @@
           @current-change="handleCurrentChange"
       >
       </el-pagination>
+
+      <el-dialog v-model="dialogVisible" title="Tips" width="30%">
+        <el-form :model="form" label-width="120px">
+          <el-form-item label="Username">
+            <el-input v-model="form.username" style="width: 80%"></el-input>
+          </el-form-item>
+          <el-form-item label="Nick Name">
+            <el-input v-model="form.nickName" style="width: 80%"></el-input>
+          </el-form-item>
+          <el-form-item label="Age">
+            <el-input v-model="form.age" style="width: 80%"></el-input>
+          </el-form-item>
+          <el-form-item label="Sex">
+            <el-radio v-model="form.sex" label="Male">Male</el-radio>
+            <el-radio v-model="form.sex" label="Female">Female</el-radio>
+            <el-radio v-model="form.sex" label="Unknown">Unknown</el-radio>
+          </el-form-item>
+          <el-form-item label="Address">
+            <el-input v-model="form.address" style="width: 80%" type="textarea"></el-input>
+          </el-form-item>
+        </el-form>
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="dialogVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="save"
+            >Confirm</el-button
+            >
+          </span>
+        </template>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -53,35 +86,28 @@ export default {
   },
   data() {
     return {
+      form: {},
+      dialogVisible: false,
       search: '',
       currentPage: 1,
       total: 10,
       tableData: [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
+
       ],
     }
   },
   methods: {
+    handleAdd() {
+      this.dialogVisible = true
+      this.form = {}
+    },
+    save() {
+
+    },
     handleEdit() {
+
+    },
+    handleDelete() {
 
     },
     handleSizeChange() {

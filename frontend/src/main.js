@@ -7,4 +7,4 @@ import store from './store'
 
 import '@/assets/css/global.css'
 
-createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
+createApp(App).use(store).use(router).use(ElementPlus, {size: 'small'}).mount('#app')

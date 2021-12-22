@@ -1,26 +1,34 @@
 package com.ycx.demo.controller;
 
+
 import com.ycx.demo.common.Result;
 import com.ycx.demo.entity.User;
-import com.ycx.demo.mapper.UserMapper;
-import com.ycx.demo.service.UserService;
+import com.ycx.demo.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 
-@RestController
+/**
+ * <p>
+ * user information table 前端控制器
+ * </p>
+ *
+ * @author pst
+ * @since 2021-12-19
+ */
+@Controller
 @RequestMapping("/user")
 public class UserController {
-
-    @Resource
-    UserService userService;
+    IUserService iUserService;
 
     @PostMapping
     public Result<?> save(@RequestBody User user) {
-        userService.insert(user);
+        iUserService.save(user);
         return Result.success();
     }
 }
